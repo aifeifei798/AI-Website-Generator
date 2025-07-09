@@ -1,90 +1,89 @@
 # AI Website Generator
 
-**AI Website Generator** 是一个先进的、基于生成式AI的自动化工具，能够将用户的单一文本提示（例如“我想要一个关于K-Pop模特的网站”）转化为一个功能齐全、设计统一、包含完整规划文档的网站原型。
+The **AI Website Generator** is an advanced, AI-driven tool that automates the creation of a complete website prototype from a single text prompt (e.g., "I want a website for a K-Pop model agency").
 
-这个项目不仅仅是一个简单的代码生成器，它模拟了一个专业Web开发团队的完整工作流程：从战略规划、视觉设计到前端编码，并内置了AI驱动的自我修复能力，以确保最终交付的可靠性。
+This project simulates the entire workflow of a professional web development team, moving from strategic planning and visual design to front-end coding. It features a unique, AI-powered self-correction mechanism to ensure a reliable and high-quality final output.
 
-## ✨ 项目亮点
+## ✨ Key Features
 
-*   **端到端自动化**: 从一个简单的想法到包含HTML, CSS和设计文档的完整网站，整个过程完全自动化。
-*   **深度AI集成**: 利用Google Gemini模型（包括Flash和Pro版本）进行多阶段的智能创作，包括内容规划、UI/UX设计、代码生成和错误修复。
-*   **专业级输出**: 生成的不仅仅是代码，还包括：
-    *   **总体规划 (`master_plan.json`)**: 网站的结构、内容和主题的JSON蓝图。
-    *   **设计文档 (`design_document.md`)**: 一份详尽的专业设计文档，阐述了品牌故事、视觉语言（颜色、字体）和用户体验策略。
-*   **设计一致性**: 独创的“规划驱动编码”流程。系统会先生成设计文档，然后从中提取出颜色、字体等具体设计规范，再强制后续的CSS生成AI遵循这些规范，确保视觉风格的高度统一。
-*   **强大的自我修复能力**: 内置“AI修正层”（AI-Fixer）。当AI在生成Jinja2模板时产生语法错误，系统能自动捕获、诊断，并调用另一个AI来修复错误的代码，极大地提高了端到端的成功率。
-*   **BEM规范**: 强制要求HTML和CSS生成遵循BEM（Block, Element, Modifier）命名约定，使得代码结构清晰，样式易于维护。
+*   **End-to-End Automation**: Transforms a simple idea into a complete website, including HTML, CSS, and planning documents, with a single command.
+*   **Deep AI Integration**: Leverages Google Gemini models (both Flash and Pro versions) for multi-stage intelligent creation, including content strategy, UI/UX design, code generation, and error correction.
+*   **Professional-Grade Deliverables**: The output goes beyond just code, providing a full project suite:
+    *   **Master Plan (`master_plan.json`)**: A JSON blueprint detailing the website's structure, content, and thematic direction.
+    *   **Design Document (`design_document.md`)**: A comprehensive and professional design document that articulates the brand story, visual language (colors, typography), and UX strategy.
+*   **Design Consistency**: Implements an innovative "Plan-Driven-Coding" process. The system first generates a design document, extracts specific design rules (like colors and fonts), and then enforces these rules upon the CSS generation AI, ensuring a high degree of visual consistency.
+*   **Robust Self-Correction**: Features a built-in "AI Fixer" layer. If the AI makes a syntax error while generating Jinja2 templates, the system automatically detects the issue, diagnoses it, and invokes another AI to fix the faulty code, dramatically increasing end-to-end success rates.
+*   **BEM Convention**: Enforces the BEM (Block, Element, Modifier) naming convention for both HTML and CSS generation, resulting in clean, structured, and maintainable code.
 
-## 🚀 工作流程
+## 🚀 The Workflow
 
-该项目模拟了一个专业团队的工作流，分为以下几个自动化步骤：
+The project automates a professional team's workflow through the following sequential steps:
 
-1.  **🧠 规划 (Planning)**
-    *   **输入**: 用户提供的一句简单的网站描述。
-    *   **AI任务**: `ai_generate_master_plan` 函数被调用。AI扮演“网站策略师”的角色，生成一个包含网站标题、主题描述和所有页面版块（sections）详细内容的JSON文件 (`master_plan.json`)。
+1.  **🧠 Planning**
+    *   **Input**: A simple, one-sentence description of the desired website from the user.
+    *   **AI Task**: The `ai_generate_master_plan` function is called. The AI, acting as a "Website Strategist," generates a JSON file (`master_plan.json`) that outlines the site title, theme description, and detailed content for every section of the website.
 
-2.  **✍️ 设计 (Designing)**
-    *   **AI任务**: `ai_write_design_doc` 函数被调用。AI扮演“高级网页设计顾问”的角色，基于`master_plan.json`，撰写一份专业的Markdown格式设计文档 (`design_document.md`)。文档详细阐述了品牌故事、视觉设计语言（并提出具体的颜色和字体建议）以及用户体验分析。
+2.  **✍️ Designing**
+    *   **AI Task**: The `ai_write_design_doc` function is called. The AI, acting as a "Senior Web Design Consultant," uses `master_plan.json` as a brief to write a professional design document in Markdown (`design_document.md`). This document details the brand narrative, visual language (proposing specific colors and fonts), and user experience analysis.
 
-3.  **🎨 编码 - CSS (Coding - CSS)**
-    *   **提取规范**: `_extract_design_specs` 函数通过正则表达式解析`design_document.md`，提取出AI建议的颜色（HEX码）和Google字体。
-    *   **AI任务**: `ai_generate_css` 函数被调用。AI扮演“CSS专家”的角色，它接收到`master_plan`的主题描述和**从设计文档中提取出的严格设计规范**，然后生成一份遵循BEM命名法、响应式且风格统一的`style.css`文件。
+3.  **🎨 Coding - CSS**
+    *   **Specification Extraction**: The `_extract_design_specs` function parses the `design_document.md` using regular expressions to extract the AI-proposed color palette (HEX codes) and Google Fonts.
+    *   **AI Task**: The `ai_generate_css` function is called. The AI, acting as a "CSS Expert," receives the theme description from the `master_plan` and the **strict design specifications extracted from the design document**. It then generates a responsive `style.css` file that adheres to the BEM convention and the specified visual guidelines.
 
-4.  **🏗️ 编码 - HTML模板 (Coding - HTML Templates)**
-    *   **AI任务**: `ai_generate_template` 函数被为`master_plan.json`中的每一个版块调用。AI扮演“Jinja2和HTML专家”的角色，根据严格的指令（包括BEM类名、图片和列表的处理方式）为每个版块生成一个HTML模板文件（如 `hero_section.html`）。
+4.  **🏗️ Coding - HTML Templates**
+    *   **AI Task**: For each section defined in the `master_plan`, the `ai_generate_template` function is called. The AI, acting as a "Jinja2 & HTML Specialist," follows a strict set of instructions (including BEM class naming and rules for handling images and lists) to generate a corresponding HTML template (e.g., `hero_section.html`).
 
-5.  **🧩 组装与修复 (Assembly & Self-Correction)**
-    *   **渲染**: `_render_component` 方法开始遍历所有版块，使用Jinja2引擎将`master_plan.json`中的数据渲染到对应的HTML模板中。
-    *   **自我修复**: 如果在渲染过程中遇到Jinja2模板语法错误（例如，AI生成了一个未闭合的标签），异常会被捕获。`ai_fix_template` 函数会被立即调用，AI扮演“代码调试器”的角色，接收错误代码和错误信息，并提供修复后的代码。修复后的模板会覆盖旧文件，然后系统继续渲染。
-    *   **整合**: 所有渲染好的HTML片段被组合起来，嵌入到一个基础的HTML骨架中，最终生成`index.html`。
+5.  **🧩 Assembly & Self-Correction**
+    *   **Rendering**: The `_render_component` method iterates through all sections, using the Jinja2 engine to render the data from `master_plan.json` into the corresponding HTML templates.
+    *   **Self-Correction**: If a Jinja2 syntax error is encountered during rendering (e.g., an unclosed tag), the exception is caught. The `ai_fix_template` function is immediately invoked. The AI, acting as a "Code Debugger," receives the broken code and the error message, then provides a corrected version. The fixed template overwrites the faulty one, and the rendering process continues.
+    *   **Integration**: All rendered HTML snippets are combined and injected into a base HTML skeleton, producing the final `index.html`.
 
-## 📁 项目结构
+## 📁 Project Structure
 
 ```
 ai_website_generator/
-├── ai/                      # AI核心逻辑子包
-│   ├── __init__.py          # 导出公共AI函数
-│   ├── core.py              # 封装对Gemini API的核心调用
-│   ├── generator.py         # 包含主要的AI生成函数 (planning, coding)
-│   ├── prompts.py           # 集中管理所有的AI提示词
-│   └── fixer.py             # (可选) 可将修复逻辑移到此处
-├── templates/               # AI动态生成的Jinja2模板存放处
+├── ai/                      # Core AI logic sub-package
+│   ├── __init__.py          # Exports public AI functions
+│   ├── core.py              # Wraps core calls to the Gemini API
+│   ├── generator.py         # Contains the main AI generation functions (planning, coding)
+│   └── prompts.py           # Centralized management for all AI prompts
+├── templates/               # Directory for dynamically generated Jinja2 templates
 ├── __init__.py
-├── builder.py               # 网站构建器，负责编排整个生成流程
-├── config.py                # API密钥配置和模型常量
-├── main.py                  # 项目入口
+├── builder.py               # The website builder, orchestrates the entire workflow
+├── config.py                # API key configuration and model constants
+├── main.py                  # Project entry point
 └── ...
 ```
 
-## 🛠️ 如何运行
+## 🛠️ How to Run
 
-### 1. 准备环境
+### 1. Setup Your Environment
 
-*   确保你已安装 Python 3.9 或更高版本。
-*   安装所有依赖项：
+*   Ensure you have Python 3.9 or newer installed.
+*   Install all required dependencies:
     ```bash
     pip install -r requirements.txt
     ```
-    *注：`requirements.txt` 文件应包含 `google-generativeai`, `Jinja2`等库。*
+    *Note: Your `requirements.txt` file should include libraries like `google-generativeai` and `Jinja2`.*
 
-### 2. 配置API密钥
+### 2. Configure Your API Key
 
-你需要一个Google Gemini API密钥。可以通过以下方式之一进行配置：
+You will need a Google Gemini API key. Configure it using one of the following methods:
 
-*   **环境变量**:
+*   **Environment Variable**:
     ```bash
     export GOOGLE_API_KEY="YOUR_API_KEY_HERE"
     ```
-*   **`.env` 文件**: (需要 `python-dotenv` 库)
-    在项目根目录创建一个 `.env` 文件，并添加：
+*   **`.env` File**: (Requires `python-dotenv` library)
+    Create a `.env` file in the project's root directory and add:
     ```
     GOOGLE_API_KEY="YOUR_API_KEY_HERE"
     ```
-*   **Google Colab**: 如果在Colab中运行，请使用左侧边栏的“Secrets”功能来存储你的`GOOGLE_API_KEY`。
+*   **Google Colab**: If running in Colab, use the "Secrets" tab in the left sidebar to store your `GOOGLE_API_KEY`.
 
-### 3. 运行项目
+### 3. Run the Project
 
-修改 `main.py` 文件中的 `user_prompt` 变量为你想要的网站主题：
+Modify the `user_prompt` variable in the `main.py` file to define your desired website theme:
 
 ```python
 # ai_website_generator/main.py
@@ -92,35 +91,35 @@ ai_website_generator/
 def main():
     # ...
     # 2. Get user input
-    user_prompt = "创建一个关于太空探索的未来主义风格网站" # <-- 修改这里
+    user_prompt = "Create a futuristic website about space exploration" # <-- Change this line
     print(f"\n[MAIN] 🚀 Starting website generation for prompt: '{user_prompt}'")
     # ...
 ```
 
-然后，从项目根目录运行 `main.py`：
+Then, run the `main.py` module from the project's root directory:
 
 ```bash
 python -m ai_website_generator.main
 ```
 
-### 4. 查看结果
+### 4. Check the Output
 
-脚本运行完成后，所有的输出文件都将位于 `output_website/` 目录下：
+Once the script finishes, all generated files will be available in the `output_website/` directory:
 
 *   `output_website/master_plan.json`
 *   `output_website/design_document.md`
 *   `output_website/website/`
     *   `index.html`
     *   `css/style.css`
-    *   `images/` (如果未来实现图片下载功能)
+    *   `images/` (for future implementation of image downloading)
 
-直接在浏览器中打开 `output_website/website/index.html` 即可预览生成的网站。
+Open `output_website/website/index.html` in your web browser to preview the generated site.
 
-## 🔮 未来展望
+## 🔮 Future Enhancements
 
-*   **真实图片生成**: 将`mock_generate_image_url`替换为调用真实文生图模型（如DALL-E, Midjourney, Imagen）的API，并将生成的图片下载到本地。
-*   **多页面支持**: 扩展`master_plan`的结构，以支持生成多个HTML页面（如 `/about`, `/contact`），并自动处理页面间的链接。
-*   **交互性增强**: 引入JavaScript生成能力，为网站添加交互元素，如导航菜单的汉堡包按钮、表单验证、动态效果等。
-*   **组件库**: 将常见的section类型（如 `hero`, `footer`）的优秀模板保存起来，形成一个可复用的组件库，在某些情况下可以跳过AI生成，直接使用高质量的预制模板。
+*   **Real Image Generation**: Replace `mock_generate_image_url` with actual API calls to a text-to-image model (like DALL-E, Midjourney, or Imagen) and download the generated images locally.
+*   **Multi-Page Support**: Extend the `master_plan` structure to support the generation of multiple HTML pages (e.g., `/about`, `/contact`) and automatically handle the linking between them.
+*   **Enhanced Interactivity**: Introduce JavaScript generation capabilities to add interactive elements like hamburger menus for navigation, form validation, and dynamic on-scroll effects.
+*   **Component Library**: Save high-quality, successfully generated templates for common section types (e.g., `hero`, `footer`) into a reusable component library. This would allow the system to skip AI generation in some cases and use proven, pre-built components for faster and more reliable results.
 
 ---
